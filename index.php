@@ -14,6 +14,7 @@ error_reporting(E_ALL);
 
 
 <?php
+require_once __DIR__ . "/product.php";
 require_once __DIR__ . "/food.php";
 require_once __DIR__ . "/toy.php";
 require_once __DIR__ . "/user.php";
@@ -21,30 +22,33 @@ require_once __DIR__ . "/user.php";
 // Product list
 //food
 
-$croquetteCat = new food("Cat01", "croquette for cat", "300gr", "€ 3,99", "CAT", "30/12/2025");
-$moistmeatCat = new food("Cat02", "moist meat for cat", "200gr", "€ 1,99", "CAT", "23/07/2025");
-$croquetteDog = new food("Dog01", "croquette for dog", "500gr", "€ 5,99", "CAT", "30/02/2025");
-$moistmeatDog = new food("Dog02", "moist meat for dog", "400gr", "€ 3,99", "CAT", "21/09/2023");
+$croquetteCat = new food("Cat01", "croquette for cat",   3.99, "CAT", "30/12/2025", "300gr");
+$moistmeatCat = new food("Cat02", "moist meat for cat", 1.99, "CAT", "23/07/2025", "200gr");
+$croquetteDog = new food("Dog01", "croquette for dog", 5.99, "CAT", "30/02/2025", "400gr");
+$moistmeatDog = new food("Dog02", "moist meat for dog",  3.99, "CAT", "21/09/2023", "400gr");
 
 // food
 // toys
-$mouseCat = new animalToy("CT01", "fake mouse for cat", "undefined", "€ 7,99", "adult cat", "red");
-$ballCat = new animalToy("CT02", "ball for cat", "undefined", "€ 4,99", "adult cat", "blue");
-$ballDog = new animalToy("DT03", "ball for dog", "undefined", "€ 4,99", "for all dog", "blue");
+$mouseCat = new animalToy("CT01", "fake mouse for cat",  7.99, "adult cat", "red");
+$ballCat = new animalToy("CT02", "ball for cat", 4.99, "adult cat", "blue");
+$ballDog = new animalToy("DT03", "ball for dog",  4.99, "for all dog", "blue");
 // toys
 
 // user
 
 $gianluca = new User("Gianluca", "Rommel", "0705678987", "rommel@gmail.com", "true");
+
+// purchases
+$gianluca->AddShopCart($croquetteCat);
+$gianluca->AddShopCart($mouseCat);
+
+
 $michele = new User("Michele", "Bonaparte", "070987654", "bonaparte@gmail.com", "false");
-// user
+$michele->AddShopCart($croquetteDog);
+$michele->AddShopCart($ballDog);
+var_dump($gianluca, $michele);
 
 ?>
-
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +61,38 @@ $michele = new User("Michele", "Bonaparte", "070987654", "bonaparte@gmail.com", 
 </head>
 
 <body>
+    <main>
+        <ul> Elenco dei prodotti per gatti:
+            <li><?php echo $croquetteCat->productInfo(); ?></li>
+            <li><?php echo $moistmeatCat->productInfo(); ?></li>
+            <li><?php echo $ballCat->productInfo(); ?></li>
+            <li><?php echo $mouseCat->productInfo(); ?></li>
+        </ul>
+        <ul> Elenco dei prodotti per cani:
+            <li><?php echo $croquetteDog->productInfo(); ?></li>
+            <li><?php echo $moistmeatDog->productInfo(); ?></li>
+            <li><?php echo $ballDog->productInfo(); ?></li>
+        </ul>
 
+        <div class="cart">
+            <h3>Ciao <?php echo $gianluca->name; ?> Hai selezionato:</h3>
+            <ul class="list-cart">
+                <?php foreach ($gianluca->shopCart as $shopItem) { ?>
+                    <li><?php echo $shopItem->productInfo(); ?></li>
+                <?php  } ?>
+            </ul>
+            <h3>Totale: € <?php echo $gianluca->finalPrice($gianluca->registered); ?></h3>
+        </div>
+        <div class="cart">
+            <h3>Ciao <?php echo $michele->name; ?> Hai selezionato:</h3>
+            <ul class="list-cart">
+                <?php foreach ($michele->shopCart as $shopItem) { ?>
+                    <li><?php echo $shopItem->productInfo(); ?></li>
+                <?php  } ?>
+            </ul>
+            <h3>Totale: € <?php echo $michele->finalPrice($michele->registered); ?></h3>
+        </div>
+    </main>
 </body>
 
 </html>

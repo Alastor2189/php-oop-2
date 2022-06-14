@@ -18,9 +18,9 @@ class User
         $this->registered = $_registered;
     }
 
-    function AddShopCart($_shopCart)
+    function addShopCart($_shopCart)
     {
-        $this->shopCart = $_shopCart;
+        $this->shopCart[] = $_shopCart;
     }
 
 

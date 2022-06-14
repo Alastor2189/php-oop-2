@@ -6,15 +6,15 @@ class animalToy extends Product
     public $typeToy;
     public $colorToy;
 
-    public function __construct($_idname, $_description, $_gr, $_price, $_typeToy, $_colorToy)
+    public function __construct($_idname, $_description, $_price, $_typeToy, $_colorToy)
     {
-        parent::__construct($_idname, $_description, $_gr, $_price);
+        parent::__construct($_idname, $_description, $_price);
         $this->typeToy = $_typeToy;
         $this->colorToy = $_colorToy;
     }
 
     public function productInfo()
     {
-        return "$this->idname | $this->description | $this->gr | $this->price | $this->typeToy | $this->colorToy";
+        return "$this->idname | $this->description | $this->price | $this->typeToy | $this->colorToy";
     }
 }
