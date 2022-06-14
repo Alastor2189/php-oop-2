@@ -32,9 +32,10 @@ class User
             $final_price += $item->price;
         }
         if ($registered === "true") {
-            return $final_price - ($final_price * 0.20);
+            $formatted_price = $final_price - ($final_price * 0.20);
+            return number_format($formatted_price, 2, ',', '');
         } else {
-            return $final_price;
+            return number_format($final_price, 2, ',', '');
         }
     }
 
