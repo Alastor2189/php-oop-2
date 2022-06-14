@@ -11,11 +11,11 @@ class food extends Product
     {
         parent::__construct($_idname, $_description, $_gr, $_price);
         $this->animal = $_animal;
-        $this->deadline = $_animal;
+        $this->deadline = $_deadline;
     }
 
     public function productInfo()
     {
-        return "$this->idname | $this->description | $this->gr | $this->price | $this->deadline";
+        return "$this->idname | $this->description | $this->gr | $this->price | $this->animal | $this->deadline";
     }
 }
